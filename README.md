@@ -1,5 +1,22 @@
 # Astro Starter Kit: Basics
 
+## Deploying to Vercel
+
+This site generates static HTML and optimized images at build time. It does not
+require a server adapter.
+
+Use these Vercel project settings:
+
+- Framework preset: **Astro**
+- Root directory: the directory containing `package.json`
+- Build command: `npm run build`
+- Output directory: `dist`
+- Node.js version: **22.x** or newer (minimum 22.12.0)
+
+After pushing configuration changes, deploy the latest commit. The build should
+report `output: "static"` and generate both `/index.html` and `/menu/index.html`.
+Do not use the Cloudflare adapter on Vercel: its server output targets Cloudflare.
+
 ```sh
 npm create astro@latest -- --template basics
 ```
