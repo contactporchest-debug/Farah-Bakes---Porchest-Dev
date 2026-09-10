@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import cookiesImg from '../assets/images/cookies.jpg';
+import basbusaImg from '../assets/images/IMG_1516 copy.jpg';
+import bananaBreadImg from '../assets/images/IMG_1633 copy.jpg';
+
+const featuredItems = [
+  {
+    title: "Chocolate Chip Cookies",
+    description: "Crispy on the edges, chewy in the center, and packed with imported chocolate chips.",
+    image: cookiesImg
+  },
+  {
+    title: "Authentic Basbusa",
+    description: "Perfectly textured, sweet semolina treat baked to golden perfection.",
+    image: basbusaImg
+  },
+  {
+    title: "Classic Banana Bread",
+    description: "Baked with naturally sweet, ripened bananas and our signature brown sugar.",
+    image: bananaBreadImg
+  }
+];
+---
+
+<section class="featured-items section-padding" id="menu">
+  <div class="container">
+    <h2 class="text-center section-title">Featured Items</h2>
+    
+    <div class="items-grid">
+      {featuredItems.map((item) => (
+        <div class="item-card">
+          <div class="image-wrapper">
+            <Image src={item.image} alt={item.title} width={600} />
+          </div>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  .section-title {
+    margin-bottom: 4rem;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2rem;
+  }
+
+  .item-card h3 {
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .item-card p {
+    color: var(--text-grey);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .item-card:hover .image-wrapper img {
+    transform: scale(1.05);
+  }
+</style>

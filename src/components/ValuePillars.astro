@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import importedQualityImg from '../assets/images/imported-quality.png';
+import bakedFreshImg from '../assets/images/baked-fresh.png';
+import brownSugarImg from '../assets/images/brown-sugar.png';
+
+const pillars = [
+  {
+    title: "Imported Quality",
+    description:
+      "Sourcing only the finest original ingredients to ensure an authentic taste.",
+    icon: importedQualityImg,
+  },
+  {
+    title: "Baked Fresh",
+    description:
+      "Handcrafted daily in small batches so you always get the best.",
+    icon: bakedFreshImg,
+  },
+  {
+    title: "100% Brown Sugar",
+    description:
+      "Exclusively baked with brown sugar for richer, more complex flavor profiles.",
+    icon: brownSugarImg,
+  },
+];
+---
+
+<section class="value-pillars section-padding">
+  <div class="container">
+    <div class="pillars-grid">
+      {
+        pillars.map((pillar) => (
+          <div class="pillar-card text-center">
+            <Image src={pillar.icon} alt={pillar.title} class="pillar-icon" />
+            <h4>{pillar.title}</h4>
+            <p>{pillar.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 3rem;
+  }
+
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pillar-icon {
+    height: 10rem;
+    margin-bottom: 1.5rem;
+    object-fit: contain;
+  }
+
+  .pillar-card h4 {
+    margin-bottom: 0.25rem;
+  }
+
+  .pillar-card p {
+    color: var(--text-grey);
+    font-size: 0.9rem;
+    max-width: 18rem;
+  }
+</style>

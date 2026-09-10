@@ -1,0 +1,375 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+import cookiesImg from "../assets/images/cookies.jpg";
+import basbusaImg from "../assets/images/IMG_1516 copy.jpg";
+import bananaBreadImg from "../assets/images/IMG_1633 copy.jpg";
+import brownieImg from "../assets/images/brownie.jpeg";
+import dateCakeImg from "../assets/images/date-cake.jpg";
+
+const menuItems = [
+  {
+    title: "Chocolate Chip Cookies",
+    description:
+      "Crispy on the edges, chewy in the center, and packed with imported chocolate chips.",
+    image: cookiesImg,
+  },
+  {
+    title: "Authentic Basbusa",
+    description:
+      "Perfectly textured, sweet semolina treat baked to golden perfection.",
+    image: basbusaImg,
+  },
+  {
+    title: "Classic Banana Bread",
+    description:
+      "Baked with naturally sweet, ripened bananas and our signature brown sugar.",
+    image: bananaBreadImg,
+  },
+  {
+    title: "Fudgy Brownie",
+    description:
+      "Rich, dense, and deeply chocolaty, elevated by the caramel notes of brown sugar.",
+    image: brownieImg,
+  },
+  {
+    title: "Date Cake",
+    description: "A delight showcasing the premium quality of imported dates.",
+    image: dateCakeImg,
+  },
+];
+
+// Fallback image handling
+const getImageUrl = (img: any) => img.src || img;
+---
+
+<Layout title="Menu - Farah Bakes">
+  <main>
+    <Header />
+
+    <section class="menu-section section-padding">
+      <div class="container">
+        <h2 class="text-center section-title gold-text">Our Menu</h2>
+
+        <div class="items-grid">
+          {
+            menuItems.map((item) => (
+              <div
+                class="item-card"
+                data-title={item.title}
+                data-description={item.description}
+                data-image={getImageUrl(item.image)}
+              >
+                <div class="image-wrapper">
+                  <Image src={item.image} alt={item.title} width={600} />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="item-modal" class="modal-overlay">
+      <div class="modal-content">
+        <button id="close-modal" class="close-btn" aria-label="Close modal"
+          >&times;</button
+        >
+        <div class="modal-body">
+          <div class="modal-image-container">
+            <img id="modal-image" src="" alt="Item Image" />
+          </div>
+          <div class="modal-info">
+            <h2 id="modal-title">Item Title</h2>
+            <p id="modal-description">Item Description</p>
+            <a
+              id="modal-order-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary order-btn">Order Now</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  .section-padding {
+    padding: 8rem 0 6rem;
+  }
+
+  .section-title {
+    margin-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-title {
+      margin-top: 2rem;
+    }
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2rem;
+  }
+
+  .item-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .item-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .item-card h3 {
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .item-card p {
+    color: var(--text-grey);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .item-card:hover .image-wrapper img {
+    transform: scale(1.05);
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .close-btn:hover {
+    background: var(--primary-green);
+    transform: scale(1.1);
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 768px) {
+    .modal-body {
+      flex-direction: row;
+    }
+  }
+
+  .modal-image-container {
+    flex: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  @media (min-width: 768px) {
+    .modal-image-container {
+      flex: 0 0 400px;
+      max-width: 400px;
+      height: 400px;
+    }
+  }
+
+  .modal-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--border-radius) 12px 0 0;
+  }
+
+  @media (min-width: 768px) {
+    .modal-image-container img {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+  }
+
+  .modal-info {
+    flex: 1;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .modal-info h2 {
+    font-size: clamp(1.8rem, 3vw + 1rem, 2.5rem);
+    margin-bottom: 1rem;
+    margin-top: 0;
+    color: var(--primary-green);
+  }
+
+  .modal-info p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-grey);
+    margin-bottom: 2.5rem;
+  }
+
+  .order-btn {
+    align-self: flex-start;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 2rem;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".item-card");
+    const modal = document.getElementById("item-modal");
+    const closeBtn = document.getElementById("close-modal");
+    const modalImage = document.getElementById(
+      "modal-image",
+    ) as HTMLImageElement;
+    const modalTitle = document.getElementById("modal-title");
+    const modalDescription = document.getElementById("modal-description");
+    const modalOrderBtn = document.getElementById(
+      "modal-order-btn",
+    ) as HTMLAnchorElement;
+
+    // Add your actual WhatsApp number here (include country code, without + or leading zeros)
+    // Example: 1234567890
+    const whatsappNumber = "1234567890";
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const title = card.getAttribute("data-title");
+        const description = card.getAttribute("data-description");
+        const imageSrc = card.getAttribute("data-image");
+
+        if (
+          title &&
+          description &&
+          imageSrc &&
+          modal &&
+          modalImage &&
+          modalTitle &&
+          modalDescription &&
+          modalOrderBtn
+        ) {
+          modalImage.src = imageSrc;
+          modalTitle.textContent = title;
+          modalDescription.textContent = description;
+
+          const message = `Hi, I'd like to order: ${title}`;
+          modalOrderBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+          modal.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+      });
+    });
+
+    const closeModal = () => {
+      if (modal) {
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+
+        // Clear the image after the fade-out animation completes
+        setTimeout(() => {
+          if (modalImage) modalImage.src = "";
+        }, 300);
+      }
+    };
+
+    closeBtn?.addEventListener("click", closeModal);
+
+    modal?.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal?.classList.contains("active")) {
+        closeModal();
+      }
+    });
+  });
+</script>

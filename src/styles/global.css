@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'Apfel Grotezk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/apfel-grotezk@5.3.0/latin-400-normal.woff2) format(woff2),
+       url(https://cdn.jsdelivr.net/fontsource/fonts/apfel-grotezk@5.3.0/latin-400-normal.woff) format('woff');
+}
+
+:root {
+  --primary-green: #1F3732;
+  --primary-gold: #D2AE6D;
+  --bg-white: #FAFAFA;
+  --text-dark: #222222;
+  --text-light: #FFFFFF;
+  --text-grey: #666666;
+  --border-radius: 0.5rem;
+}
+
+/* Fluid Typography using clamp() as per design.md */
+html {
+  font-family: 'Apfel Grotezk', sans-serif;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw + 1rem, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--primary-gold);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2vw + 0.5rem, 1.5rem);
+  font-weight: bold;
+}
+
+h4 {
+  font-size: clamp(1.1rem, 1.5vw + 0.5rem, 1.3rem);
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.gold-text {
+  color: var(--primary-gold);
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--primary-gold);
+  color: var(--primary-green);
+  padding: 0.5rem 1.5rem;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #c09e60;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-gold);
+  color: var(--primary-gold);
+  padding: 0.75rem 2rem;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-gold);
+  color: var(--primary-green);
+}

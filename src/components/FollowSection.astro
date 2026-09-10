@@ -1,0 +1,105 @@
+---
+import { Image } from "astro:assets";
+import img1 from "../assets/images/date-cake.jpg";
+import img2 from "../assets/images/IMG_1522 copy.jpg";
+import img3 from "../assets/images/IMG_1605 copy.jpg";
+import img4 from "../assets/images/IMG_1587 copy.jpg";
+
+const baseImages = [img1, img2, img3, img4];
+// Repeat the images enough times to ensure smooth infinite scrolling even on ultra-wide screens
+const allImages = Array(8).fill(baseImages).flat();
+---
+
+<section class="follow-section section-padding">
+  <div class="container">
+    <h2 class="text-center section-title">Follow @ Farah Bakes</h2>
+  </div>
+
+  <div class="marquee-container">
+    <div class="marquee-track">
+      {
+        allImages.map((img) => (
+          <div class="marquee-item">
+            <div class="image-wrapper">
+              <Image src={img} alt="Instagram feed post" width={400} />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  .section-title {
+    margin-bottom: 3rem;
+  }
+
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0; /* Padding for hover scaling */
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 50s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-item {
+    width: 300px;
+    flex-shrink: 0;
+    padding-right: 1.5rem; /* Gap between items */
+  }
+
+  .image-wrapper {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    height: 100%;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .marquee-item:hover img {
+    transform: scale(1.05);
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .marquee-item {
+      width: 250px;
+      padding-right: 1rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .marquee-item {
+      width: 200px;
+      padding-right: 1rem;
+    }
+  }
+</style>
